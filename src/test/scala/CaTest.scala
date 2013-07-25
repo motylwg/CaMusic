@@ -17,16 +17,16 @@ class CaTest extends FunSuite {
 
   test("rule 256 behavior") {
     val rule256 = Rule.getRule(0xff)
-    assert(rule256(true, true, true) === true)
-    assert(rule256(true, true, false) === true)
+    assert(rule256(List(true, true, true)) === true)
+    assert(rule256(List(true, true, false)) === true)
   }
 
   test("rule 16 behavior") {
     val rule16 = Rule.getRule(0x0f)
-    assert(rule16(false, false, false) === true)
-    assert(rule16(false, true, true) === true)
-    assert(rule16(true, false, false) === false)
-    assert(rule16(true, true, true) === false)
+    assert(rule16(List(false, false, false)) === true)
+    assert(rule16(List(false, true, true)) === true)
+    assert(rule16(List(true, false, false)) === false)
+    assert(rule16(List(true, true, true)) === false)
 
   }
 }
