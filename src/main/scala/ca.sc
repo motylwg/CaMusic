@@ -1,7 +1,33 @@
-import motylwg.camusic.Ca
+import motylwg.camusic.{Ca, CaPlayer}
 
-val ca = new Ca(90, 256)
+val ca = new Ca(54, 60)
 
-println(ca.step(1000))
+val ca2 = ca.step(48)
+
+
+
+
+
+
+
+
+
+
+
+
+
+CaPlayer.play(ca2)
+
+
+
+
+
+
+
+
+
+
+
+
 
 

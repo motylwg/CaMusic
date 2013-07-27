@@ -7,49 +7,47 @@ class Ca(val rule: Int, val history: List[List[Boolean]]) {
     for (i <- 1 to size) yield Random.nextBoolean()
   }.toList))
 
-
-
+  // efficiency is not an issue for this project so go for simplicity and clarity
   def nextState() = {
-    val fun = Rule.getRule(rule)
+    val update = Rule(rule)
     val state = history.head
 
     val first = List(state.head)
     val last = state.takeRight(1).head
-    val cyclicState: List[Boolean] = last :: (state ::: first)
+    val cyclicState: List[Boolean] = last :: state ::: first
     val neighborhoods = cyclicState.sliding(3).toList
 
-    neighborhoods map fun
+    neighborhoods map update
   }
 
   def nextCa = new Ca(rule, nextState() :: history)
 
-  def step(n: Int) = (1 to n).toList.foldRight(this)((n, ca) => ca.nextCa)
+  def step(n: Int) = (1 to n).toList.foldRight(this)((_, ca) => ca.nextCa)
 
   override def toString = {
-    def rowString(state: List[Boolean]): String = (state map (if (_) "*" else " ")).mkString("|", "", "|").substring(0,40)
+    def rowString(state: List[Boolean]): String = (state map (if (_) "*" else " ")).mkString("|", "", "|")
 
     val lines = history.reverse map rowString
     lines.mkString("\n\n", "\n", "\n")
   }
-
 }
 
 object Rule {
-  def getRule(rule: Int): List[Boolean] => Boolean = {
-    def fun(list: List[Boolean]): Boolean = {
+  def apply(rule: Int): List[Boolean] => Boolean = {
+    def update(list: List[Boolean]): Boolean = {
       val n: Int = {
         list match {
-          case b3 :: b2:: b1 :: tail =>
+          case b3 :: b2 :: b1 :: tail =>
             (if (b1) 1 else 0) +
             (if (b2) 2 else 0) +
             (if (b3) 4 else 0)
-          case _ => throw new IllegalArgumentException("incorrect neighborhood for rule")
+          case _ => throw new IllegalArgumentException("insufficient neighborhood for rule")
         }
       }
       val mask = 1 << n
       (mask & rule) == mask
     }
-    fun
+    update
   }
 }
 
