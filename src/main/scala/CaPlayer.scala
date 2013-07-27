@@ -18,10 +18,19 @@ object CaPlayer {
     (data map readByte).unzip
   }
 
-  def musicString(ints: List[Int]) = {
-    val ints2 = ints map (n => (n % 7) + 65)
-    val chars = ints2 map ((c:Int) => c.toChar)
-    chars.mkString(" ")
+  def musicString(ints: List[Int], octave: Int = 5) = {
+    def term(n: Int) = {
+      val note = (65 + ((n >> 2) % 7)).toChar
+      val duration = (n % 4) match {
+        case 0 => "w"
+        case 1 => "h"
+        case 2 => "q"
+        case _ => "i"
+      }
+      note + octave.toString + duration
+    }
+    val terms = ints map term
+    terms.mkString(" ")
   }
 
 
@@ -31,8 +40,9 @@ object CaPlayer {
     val (voice1, data1) = readBytes(ca.history.reverse)
     val (voice2, data2) = readBytes(data1)
     val (voice3, data3) = readBytes(data2)
+    val (voice4, data4) = readBytes(data3)
 
-    val ms = "V0 " + musicString(voice1) + " V1 " + musicString(voice2) + " v2 " + musicString(voice3)
+    val ms = "V0 " + musicString(voice1) + " V1 " + musicString(voice2) + " v2 " + musicString(voice3, 4) + " v3 " + musicString(voice4, 6)
 
 
 
