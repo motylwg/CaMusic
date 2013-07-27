@@ -25,7 +25,7 @@ class Ca(val rule: Int, val history: List[List[Boolean]]) {
   def step(n: Int) = (1 to n).toList.foldRight(this)((_, ca) => ca.nextCa)
 
   override def toString = {
-    def rowString(state: List[Boolean]): String = (state map (if (_) "*" else " ")).mkString("|", "", "|")
+    def rowString(state: List[Boolean]): String = (state map (if (_) "*" else " ")).mkString("").substring(1,60)
 
     val lines = history.reverse map rowString
     lines.mkString("\n\n", "\n", "\n")

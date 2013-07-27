@@ -20,7 +20,15 @@ object CaPlayer {
 
   def musicString(ints: List[Int], octave: Int = 5) = {
     def term(n: Int) = {
-      val note = (65 + ((n >> 2) % 7)).toChar
+      val note = (65 + ((n >> 2) % 12)).toChar match {
+        case 'H' => 'C'
+        case 'I' => 'G'
+        case 'J' => 'F'
+        case 'K' => 'B'
+        case 'L' => 'C'
+        case c => c
+      }
+
       val duration = (n % 4) match {
         case 0 => "w"
         case 1 => "h"
@@ -42,7 +50,7 @@ object CaPlayer {
     val (voice3, data3) = readBytes(data2)
     val (voice4, data4) = readBytes(data3)
 
-    val ms = "V0 " + musicString(voice1) + " V1 " + musicString(voice2) + " v2 " + musicString(voice3, 4) + " v3 " + musicString(voice4, 6)
+    val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 5) + " v3 " + musicString(voice4, 6)
 
 
 

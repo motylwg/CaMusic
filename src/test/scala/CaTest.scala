@@ -22,11 +22,11 @@ class CaTest extends FunSuite {
   }
 
   test("rule 16 behavior") {
-    val rule16 = Rule(0x0f)
-    assert(rule16(List(false, false, false)) === true)
+    val rule16 = Rule(30)
+    assert(rule16(List(false, false, false)) === false)
+    assert(rule16(List(false, false, true)) === true)
     assert(rule16(List(false, true, true)) === true)
-    assert(rule16(List(true, false, false)) === false)
-    assert(rule16(List(true, true, true)) === false)
+    assert(rule16(List(true, false, true)) === false)
 
   }
 }
