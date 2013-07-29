@@ -1,9 +1,19 @@
 package motylwg.camusic
 
+import scala.util.Random
 import org.jfugue._
 
 
 object CaPlayer {
+  val pitches = List("C", "C", "C", "G", "G", "D", "D", "A", "A", "E", "F", "B")
+  val pitchIndices = Random.shuffle((0 until pitches.size).toList)
+  val pitchMap = (pitchIndices.zip(pitches)).toMap
+
+  val durations = List("w", "h", "q", "i")
+  val durationIndices = Random.shuffle((0 until durations.size).toList)
+  val durationMap = (durationIndices.zip(durations)).toMap
+
+
   def readBytes(data: List[List[Boolean]]) = {
 
     def readBits(bits: List[Boolean], acc: Int, n: Int): (Int, List[Boolean]) = {
@@ -20,22 +30,12 @@ object CaPlayer {
 
   def musicString(ints: List[Int], octave: Int = 5) = {
     def term(n: Int) = {
-      val note = (65 + ((n >> 2) % 12)).toChar match {
-        case 'H' => 'C'
-        case 'I' => 'G'
-        case 'J' => 'F'
-        case 'K' => 'B'
-        case 'L' => 'C'
-        case c => c
-      }
 
-      val duration = (n % 4) match {
-        case 0 => "w"
-        case 1 => "h"
-        case 2 => "q"
-        case _ => "i"
-      }
-      note + octave.toString + duration
+      val pitch = pitchMap(n % pitchMap.size)
+
+      val duration = durationMap(n % durationMap.size)
+
+      pitch + octave + duration
     }
     val terms = ints map term
     terms.mkString(" ")
@@ -52,9 +52,6 @@ object CaPlayer {
 
     val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 5) + " v3 " + musicString(voice4, 6)
 
-
-
-    println(ms)
     player.play(ms)
   }
 }
