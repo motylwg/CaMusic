@@ -9,7 +9,7 @@ class CaPlayer {
   val pitchIndices = Random.shuffle((0 until pitches.size).toList)
   val pitchMap = (pitchIndices.zip(pitches)).toMap
 
-  val durations = List("w", "h", "q", "q", "i", "i")
+  val durations = List("w", "h", "q", "i")
   val durationIndices = Random.shuffle((0 until durations.size).toList)
   val durationMap = (durationIndices.zip(durations)).toMap
 
