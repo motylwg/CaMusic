@@ -9,7 +9,7 @@ object CaPlayer {
   val pitchIndices = Random.shuffle((0 until pitches.size).toList)
   val pitchMap = (pitchIndices.zip(pitches)).toMap
 
-  val durations = List("w", "h", "q", "i")
+  val durations = List("w", "h", "q", "q", "i", "i")
   val durationIndices = Random.shuffle((0 until durations.size).toList)
   val durationMap = (durationIndices.zip(durations)).toMap
 
@@ -29,7 +29,7 @@ object CaPlayer {
   }
 
   def musicString(ints: List[Int], octave: Int = 5) = {
-    def term(n: Int) = {
+    def note(n: Int) = {
 
       val pitch = pitchMap(n % pitchMap.size)
 
@@ -37,20 +37,21 @@ object CaPlayer {
 
       pitch + octave + duration
     }
-    val terms = ints map term
-    terms.mkString(" ")
+
+    val notes = ints map note
+    notes.mkString(" ")
   }
 
 
   def play(ca: Ca) {
     val player = new Player()
 
-    val (voice1, data1) = readBytes(ca.history.reverse)
+    val (voice1, data1) = readBytes(ca.history)
     val (voice2, data2) = readBytes(data1)
     val (voice3, data3) = readBytes(data2)
     val (voice4, data4) = readBytes(data3)
 
-    val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 5) + " v3 " + musicString(voice4, 6)
+    val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 4) + " v3 " + musicString(voice4, 5)
 
     player.play(ms)
   }
