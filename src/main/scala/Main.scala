@@ -1,17 +1,49 @@
 package motylwg.camusic
 
-/**
- * Created with IntelliJ IDEA.
- * User: bill
- * Date: 7/31/13
- * Time: 8:09 PM
- * To change this template use File | Settings | File Templates.
- */
-object Main extends  App {
-  val initCa = new Ca(110, 1000)
-  val ca = initCa.step(1024)
+import scala.concurrent._
+import scala.concurrent.ExecutionContext.Implicits._
+import scala.swing._
+import scala.swing.event._
 
-  println(ca)
+object Main extends SimpleSwingApplication {
+  def top = new MainFrame {
+    title = "CaMusic"
+    object quitButton extends Button {
+      text = "Quit"
+      reactions += {
+        case ButtonClicked(_) => quit()
+      }
+    }
+    val playButton = new Button {
+      text = "Play"
+      reactions += {
+        case ButtonClicked(_) => {
+          val myFuture = future {
+            play()
+          }
+        }
+      }
 
-  CaPlayer.play(ca)
+    }
+    contents = new FlowPanel {
+      contents.append(playButton)
+      contents.append(quitButton)
+    }
+
+    size = new Dimension(200, 75)
+
+    def play() = {
+      CaPlayer.quit()
+      val initCa = new Ca(110, 1000)
+      val ca = initCa.step(100)
+
+      println(ca)
+
+      CaPlayer.play(ca)
+    }
+  }
+
+
+
+
 }

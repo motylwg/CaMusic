@@ -13,6 +13,7 @@ object CaPlayer {
   val durationIndices = Random.shuffle((0 until durations.size).toList)
   val durationMap = (durationIndices.zip(durations)).toMap
 
+  val player = new Player()
 
   def readBytes(data: List[List[Boolean]]) = {
 
@@ -44,15 +45,17 @@ object CaPlayer {
 
 
   def play(ca: Ca) {
-    val player = new Player()
-
     val (voice1, data1) = readBytes(ca.history)
     val (voice2, data2) = readBytes(data1)
     val (voice3, data3) = readBytes(data2)
     val (voice4, data4) = readBytes(data3)
 
-    val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 4) + " v3 " + musicString(voice4, 5)
+    val ms = "V0 " + musicString(voice1, 3) + " V1 " + musicString(voice2, 4) + " v2 " + musicString(voice3, 5) + " v3 " + musicString(voice4, 6)
 
     player.play(ms)
+  }
+
+  def quit() = {
+    player.close();
   }
 }
