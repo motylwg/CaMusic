@@ -4,7 +4,7 @@ import scala.util.Random
 import org.jfugue._
 
 
-object CaPlayer {
+class CaPlayer {
   val pitches = List("C", "C", "C", "G", "G", "D", "D", "A", "A", "E", "F", "B")
   val pitchIndices = Random.shuffle((0 until pitches.size).toList)
   val pitchMap = (pitchIndices.zip(pitches)).toMap

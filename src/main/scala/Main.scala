@@ -6,6 +6,7 @@ import scala.swing._
 import scala.swing.event._
 
 object Main extends SimpleSwingApplication {
+  var caPlayer = new CaPlayer()
   def top = new MainFrame {
     title = "CaMusic"
     object quitButton extends Button {
@@ -33,13 +34,14 @@ object Main extends SimpleSwingApplication {
     size = new Dimension(200, 75)
 
     def play() = {
-      CaPlayer.quit()
+      caPlayer.quit()
       val initCa = new Ca(110, 1000)
       val ca = initCa.step(720)
 
-      println(ca)
+      caPlayer = new CaPlayer()
 
-      CaPlayer.play(ca)
+
+      caPlayer.play(ca)
     }
   }
 
