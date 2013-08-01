@@ -35,7 +35,7 @@ object Main extends SimpleSwingApplication {
     def play() = {
       CaPlayer.quit()
       val initCa = new Ca(110, 1000)
-      val ca = initCa.step(100)
+      val ca = initCa.step(720)
 
       println(ca)
 
