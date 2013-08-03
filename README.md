@@ -9,4 +9,4 @@ In his studies of CA, Wolfram relied heavily on the use of human perception to c
 This project is a minimalistic attempt to leverage human aural perception by rendering CA evolution as music using the [JFugue](http://jfugue.org/) music API.
 The results can be surprisingly musical.
 
-To try it out download the zip file and run CaMusic.jar located under the idea_output directory.
+Release includes a runnable jar.
