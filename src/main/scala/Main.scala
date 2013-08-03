@@ -24,8 +24,8 @@ object Main extends SimpleSwingApplication {
           }
         }
       }
-
     }
+
     contents = new FlowPanel {
       contents.append(playButton)
       contents.append(quitButton)
@@ -35,11 +35,10 @@ object Main extends SimpleSwingApplication {
 
     def play() = {
       caPlayer.quit()
-      val initCa = new Ca(110, 1000)
-      val ca = initCa.step(720)
+      val initCa = new Ca(110, 512)
+      val ca = initCa.step(256)
 
       caPlayer = new CaPlayer()
-
 
       caPlayer.play(ca)
     }

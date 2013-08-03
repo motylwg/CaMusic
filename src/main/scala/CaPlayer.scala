@@ -3,15 +3,14 @@ package motylwg.camusic
 import scala.util.Random
 import org.jfugue._
 
-
 class CaPlayer {
   val pitches = List("C", "C", "C", "G", "G", "D", "D", "A", "A", "E", "F", "B")
   val pitchIndices = Random.shuffle((0 until pitches.size).toList)
-  val pitchMap = (pitchIndices.zip(pitches)).toMap
+  val pitchMap = pitchIndices.zip(pitches).toMap
 
   val durations = List("w", "h", "q", "i")
   val durationIndices = Random.shuffle((0 until durations.size).toList)
-  val durationMap = (durationIndices.zip(durations)).toMap
+  val durationMap = durationIndices.zip(durations).toMap
 
   val player = new Player()
 
@@ -56,6 +55,6 @@ class CaPlayer {
   }
 
   def quit() = {
-    player.close();
+    player.close()
   }
 }
