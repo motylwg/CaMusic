@@ -18,15 +18,13 @@ object Main extends SimpleSwingApplication {
     object stopButton extends Button {
       text = "Stop"
       reactions += {
-        case ButtonClicked(_) => quit()
+        case ButtonClicked(_) => player ! Stop
       }
     }
     val playButton = new Button {
       text = "Play"
       reactions += {
-        case ButtonClicked(_) => {
-          player ! Start
-        }
+        case ButtonClicked(_) => player ! Start
       }
     }
 

@@ -54,7 +54,7 @@ class CaPlayer {
     player.play(ms)
   }
 
-  def quit() = {
+  def stop() = {
     player.close()
   }
 }
