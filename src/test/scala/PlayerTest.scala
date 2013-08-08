@@ -14,10 +14,10 @@ class PlayerTest extends FunSuite {
       List(true, true, true, true, false, false, false, false, true, true),
       List(false, false, false, false, true, true, true, true, false, false))
     val pm = new PitchMapper(MinorPitches)
-    val pitchMap = pm.getShuffledMap()
+    val pitchMap = pm.getShuffledMap
 
     val dm = new DurationMapper(BalancedDurations)
-    val durationMap = dm.getShuffledMap()
+    val durationMap = dm.getShuffledMap
 
     val source = new CaSource(pitchMap, durationMap)
     assert(source.readBytes(data) === (List(0xf0, 0x0f), List(List(true, true), List(false, false))))

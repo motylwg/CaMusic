@@ -13,19 +13,19 @@ object Main extends SimpleSwingApplication {
   val pm = new PitchMapper(MajorPitches)
   val dm = new DurationMapper(BalancedDurations)
 
-  val pitchMap = pm.getShuffledMap()
-  val durationMap = dm.getShuffledMap()
+  val pitchMap = pm.getShuffledMap
+  val durationMap = dm.getShuffledMap
   val player = new Player()
   var CaPlayer = new CaSource(pitchMap, durationMap)
 
-  def play  {
+  def play()  {
     if (player.isPlaying) player.stop()
 
     val initCa = new Ca(110, 1000)
     val ca = initCa.step(25)
 
-    val pitchMap = pm.getShuffledMap()
-    val durationMap = dm.getShuffledMap()
+    val pitchMap = pm.getShuffledMap
+    val durationMap = dm.getShuffledMap
     val source = new CaSource(pitchMap, durationMap)
 
     val f = future {
@@ -52,7 +52,7 @@ object Main extends SimpleSwingApplication {
       text = "Play"
       reactions += {
         case ButtonClicked(_) => {
-          if (player.isStarted) player.stop
+          if (player.isStarted) player.stop()
           play
           stopped = false
         }

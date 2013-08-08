@@ -18,9 +18,9 @@ case object SyncompatedDurations extends DurationSetting
 trait MusicMapper {
   val entries: List[String]
 
-  def getMap() = ((0 until entries.size).toList).zip(entries).toMap
+  def getMap = (0 until entries.size).toList.zip(entries).toMap
 
-  def getShuffledMap() = {
+  def getShuffledMap = {
     val indices = Random.shuffle((0 until entries.size).toList)
     indices.zip(entries).toMap
   }
